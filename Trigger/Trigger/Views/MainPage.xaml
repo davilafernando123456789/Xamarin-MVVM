@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewmodels="clr-namespace:Trigger.ViewModels"
+             mc:Ignorable="d"
+             x:Class="Trigger.Views.MainPage">
+    <ContentPage.BindingContext>
+        <viewmodels:TaskViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="50">
+        <Label FontSize="Title" Text="Title"></Label>
+        <Entry FontSize="Title" Text="{Binding Title}"></Entry>
+        
+        <Label FontSize="Description" Text="Description"></Label>
+        <Entry FontSize="Description" Text="{Binding Description}"></Entry>
+
+        <Label FontSize="Status" Text="Status"></Label>
+        <Entry FontSize="Status" Text="{Binding Status}"></Entry>
+
+        <Button Text="Save" BackgroundColor="AntiqueWhite" Command="{Binding Save}"></Button>
+        <Button Text="Get" BackgroundColor="Lavender" Command="{Binding Get}"></Button>
+
+        <ListView ItemsSource="{Binding Tasks}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+
+                            <Label Text="Titulo" />
+                            <Label Text="{Binding Title}" />
+                            <Label Text="Descripcion" />
+                            <Label Text="{Binding Description}" />
+                            <Label Text="Status" />
+                            <Label Text="{Binding Status}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>
+
