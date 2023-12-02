@@ -21,7 +21,6 @@ namespace Trigger.Models
                 OnPropertyChanged();
             }
         }
-
         public string Description
         {
             get => _description;
@@ -31,7 +30,6 @@ namespace Trigger.Models
                 OnPropertyChanged();
             }
         }
-
         public string Status
         {
             get => _status;
