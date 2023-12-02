@@ -1,45 +1,96 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewmodels="clr-namespace:Trigger.ViewModels"
              mc:Ignorable="d"
              x:Class="Trigger.Views.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="Large" />
+                <Setter Property="TextColor" Value="#3b5998" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Margin" Value="0,5,0,2" />
+            </Style>
+
+            <Style TargetType="Entry">
+                <Setter Property="FontSize" Value="Large" />
+                <Setter Property="TextColor" Value="Gray" />
+                <Setter Property="FontAttributes" Value="Italic" />
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="PlaceholderColor" Value="#f0f2f5" />
+                <Setter Property="HeightRequest" Value="60" />
+                <Setter Property="Margin" Value="15,0,15,0" />
+            </Style>
+
+            <Style TargetType="Frame" x:Key="EntryFrameStyle">
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0" />
+            </Style>
+
+
+            <Style TargetType="Button">
+                <Setter Property="FontSize" Value="Large" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BackgroundColor" Value="#3b5998" />
+               
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="Margin" Value="0,10,0,0" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.BindingContext>
         <viewmodels:TaskViewModel />
     </ContentPage.BindingContext>
 
-    <StackLayout Padding="50">
-        <Label FontSize="Title" Text="Title"></Label>
-        <Entry FontSize="Title" Text="{Binding Title}"></Entry>
-        
-        <Label FontSize="Description" Text="Description"></Label>
-        <Entry FontSize="Description" Text="{Binding Description}"></Entry>
+    <StackLayout Padding="20" Spacing="10">
+        <Label FontSize="Large" Text="APP DE DAVILA" HorizontalOptions="Center" FontAttributes="Bold" TextColor="DarkBlue" />
 
-        <Label FontSize="Status" Text="Status"></Label>
-        <Entry FontSize="Status" Text="{Binding Status}"></Entry>
+        <Label FontSize="Large" Text="Title" />
+        <Frame Style="{StaticResource EntryFrameStyle}">
+            <Entry FontSize="Large" Text="{Binding Title}" />
+        </Frame>
 
-        <Button Text="Save" BackgroundColor="AntiqueWhite" Command="{Binding Save}"></Button>
-        <Button Text="Get" BackgroundColor="Lavender" Command="{Binding Get}"></Button>
+        <Label FontSize="Large" Text="Description" />
+        <Frame Style="{StaticResource EntryFrameStyle}">
+            <Entry FontSize="Large" Text="{Binding Description}" />
+        </Frame>
 
-        <ListView ItemsSource="{Binding Tasks}">
+        <Label FontSize="Large" Text="Status" />
+            <Frame Style="{StaticResource EntryFrameStyle}">
+                <Entry FontSize="Large" Text="{Binding Status}" />
+        </Frame>
+
+        <Button Text="Save" Command="{Binding Save}" />
+        <Button Text="Get" Command="{Binding Get}" BackgroundColor="DarkSlateGray" />
+
+        <ListView ItemsSource="{Binding Tasks}" VerticalOptions="FillAndExpand" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout>
+                        <Frame BackgroundColor="#e0e0e0" Padding="10" Margin="0,5,0,5" CornerRadius="5">
+                            <StackLayout>
+                                <Label Text="Titulo" FontAttributes="Bold" />
+                                <Label Text="{Binding Title}" />
 
-                            <Label Text="Titulo" />
-                            <Label Text="{Binding Title}" />
-                            <Label Text="Descripcion" />
-                            <Label Text="{Binding Description}" />
-                            <Label Text="Status" />
-                            <Label Text="{Binding Status}" />
-                        </StackLayout>
+                                <Label Text="Descripcion" FontAttributes="Bold" />
+                                <Label Text="{Binding Description}" />
+
+                                <Label Text="Status" FontAttributes="Bold" />
+                                <Label Text="{Binding Status}" />
+                            </StackLayout>
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </StackLayout>
-</ContentPage>
 
+    </StackLayout>
+
+</ContentPage>

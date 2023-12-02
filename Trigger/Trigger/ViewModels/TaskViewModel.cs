@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reflection;
-using System.Text;
-using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Xamarin.Forms;
-using static Trigger.ViewModels.TaskViewModel;
 
 namespace Trigger.ViewModels
 {
@@ -16,6 +13,8 @@ namespace Trigger.ViewModels
         private string _title;
         private string _description;
         private string _status;
+
+        private ObservableCollection<Models.Task> _storedTasks;
 
         public ObservableCollection<Models.Task> Tasks
         {
@@ -60,9 +59,14 @@ namespace Trigger.ViewModels
         public ICommand Save => new Command(ExecuteSave);
         public ICommand Get => new Command(ExecuteGet);
 
+        public TaskViewModel()
+        {
+            _storedTasks = new ObservableCollection<Models.Task>();
+            _tasks = new ObservableCollection<Models.Task>();
+        }
+
         private void ExecuteSave()
         {
-            // Implementa la lógica para guardar la tarea
             var newTask = new Models.Task
             {
                 Title = Title,
@@ -70,7 +74,8 @@ namespace Trigger.ViewModels
                 Status = Status
             };
 
-            Tasks.Add(newTask);
+            // Solo agrega la tarea a la lista temporal (_storedTasks)
+            _storedTasks.Add(newTask);
 
             // Limpia los campos después de guardar
             Title = string.Empty;
@@ -80,46 +85,14 @@ namespace Trigger.ViewModels
 
         private void ExecuteGet()
         {
-            // Implementa la lógica para obtener las tareas (si es necesario)
+            // Limpia la lista actual
+            Tasks.Clear();
+
+            // Agrega las tareas almacenadas temporalmente a la lista actual
+            foreach (var task in _storedTasks)
+            {
+                Tasks.Add(task);
+            }
         }
-    //    public class TaskViewModel
-    //{
-
-
-    //    string title;
-    //    public string Title
-    //    {
-    //        get { return title; }
-    //        set
-    //        {
-    //            if (title != value)
-    //            {
-    //                title = value;
-    //                OnPropertyChanged();
-    //            }
-    //        }
-    //    }
-
-        //public ObservableCollection<Models.Task> Tasks { get; set; }
-
-        //public TaskViewModel()
-        //{
-        //    Tasks = new ObservableCollection<Models.Task>();
-        //}
-
-        //public void InsertTask(Models.Task newTask)
-        //{
-        //    Tasks.Add(newTask);
-        //}
-
-        //public ObservableCollection<Models.Task> GetTasks()
-        //{
-        //    return Tasks;
-        //}
-        //public List<string> MuchosTask { get; set; }
     }
 }
-
-
-
-
