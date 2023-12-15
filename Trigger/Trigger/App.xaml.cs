@@ -10,13 +10,17 @@ namespace Trigger
         public App()
         {
             InitializeComponent();
-
-            //MainPage = new MainPage();
-
-            //MainPage = new NavigationPage(new MainPage());
-            MainPage = new NavigationPage(new Views.MainPage());
+            GetContext().Database.EnsureCreated();
+            MainPage = new PeopleView();
         }
 
+
+        public static AppDbContext GetContext()
+        {
+            string DbPath = DependencyService.Get<IConfigDataBase>().GetFullPath("efCore.db");
+
+            return new AppDbContext(DbPath);
+        }
         protected override void OnStart()
         {
         }
@@ -30,5 +34,6 @@ namespace Trigger
         }
     }
 }
+
 
 
